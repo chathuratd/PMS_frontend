@@ -22,7 +22,7 @@ jobs:
       run: docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}"
 
     - name: Build Docker image
-      run: docker build -t chathuratd007/pms_front --build-arg REACT_APP_API_PROXY="${{ secrets.REACT_APP_API_PROXY }}" .
+      run: docker build -t chathuratd007/pms_front .
 
     - name: Push Docker image
       run: docker push chathuratd007/pms_front:latest
@@ -39,7 +39,13 @@ jobs:
     steps:
     - name: Pull Docker image
       run: docker pull chathuratd007/pms_front:latest
-      
+
+    - name: Stop existing Docker container (if running)
+      run: docker stop pms_front || true
+
+    - name: Remove existing Docker container (if exists)
+      run: docker rm pms_front || true
+
     - name: Run Docker container in production
       run: |
         docker run -d -p 3000:3000 chathuratd007/pms_front:latest

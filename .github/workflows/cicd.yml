@@ -9,6 +9,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    services:
+      docker:
+        image: docker:latest
+        options: --privileged  # Run with privileged access to Docker
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -17,14 +22,19 @@ jobs:
       run: docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}"
 
     - name: Build Docker image
-      run: docker build -t chathuratd007/pms_front --build-arg REACT_APP_API_PROXY=`${{ secrets.REACT_APP_API_PROXY }}` .
+      run: docker build -t chathuratd007/pms_front --build-arg REACT_APP_API_PROXY="${{ secrets.REACT_APP_API_PROXY }}" .
 
     - name: Push Docker image
       run: docker push chathuratd007/pms_front:latest
 
   deploy:
     needs: build
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
+
+    services:
+      docker:
+        image: docker:latest
+        options: --privileged  # Run with privileged access to Docker
 
     steps:
     - name: Pull Docker image

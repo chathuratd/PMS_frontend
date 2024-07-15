@@ -39,13 +39,7 @@ jobs:
     steps:
     - name: Pull Docker image
       run: docker pull chathuratd007/pms_front:latest
-
-    - name: Stop existing Docker container (if running)
-      run: docker stop pms_front || true
-
-    - name: Remove existing Docker container (if exists)
-      run: docker rm pms_front || true
-
+      
     - name: Run Docker container in production
       run: |
         docker run -d -p 3000:3000 chathuratd007/pms_front:latest

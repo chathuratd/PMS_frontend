@@ -1,5 +1,5 @@
-# Use the official Node.js image as the base image with Node.js version 14
-FROM node:20
+# Build stage
+FROM node:20 as build
 
 # Set the working directory in the container
 WORKDIR /app
@@ -10,11 +10,23 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
-# Copy the rest of the backend application to the container
+# Copy the rest of the application to the container
 COPY . .
 
-# Expose the port the backend application will run on (adjust if necessary)
-EXPOSE 3000
+# Build the React app for production
+RUN npm run build
 
-# Command to run the backend application
-CMD ["npm", "start"]
+# Production stage
+FROM nginx:alpine
+
+# Copy the built React app from the build stage
+COPY --from=build /app/build /usr/share/nginx/html
+
+# Copy custom Nginx configuration file
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Expose the port the application will run on
+EXPOSE 80
+
+# Start Nginx server
+CMD ["nginx", "-g", "daemon off;"]

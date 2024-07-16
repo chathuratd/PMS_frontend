@@ -27,18 +27,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Login to Docker Hub
-      run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+    - name: Install SSH key
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-    - name: Pull Docker image
-      run: docker pull chathuratd007/pms_front:latest
-
-    - name: Stop existing Docker container (if running)
-      run: docker stop pms_front || true
-
-    - name: Remove existing Docker container (if exists)
-      run: docker rm pms_front || true
-
-    - name: Run Docker container in production
+    - name: SSH and Deploy
       run: |
-        docker run -d -p 80:80 --name pms_front chathuratd007/pms_front:latest
+        ssh -o StrictHostKeyChecking=no ec2-user@54.172.39.22 << 'EOF'
+          docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}"
+          docker pull chathuratd007/pms_front:latest
+          docker stop pms_front || true
+          docker rm pms_front || true
+          docker run -d -p 80:80 --name pms_front chathuratd007/pms_front:latest
+        EOF
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}

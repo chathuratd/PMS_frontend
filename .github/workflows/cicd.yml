@@ -48,4 +48,4 @@ jobs:
 
     - name: Run Docker container in production
       run: |
-        docker run -d -p 3000:3000 -e REACT_APP_API_PROXY="${{ secrets.REACT_APP_API_PROXY }}" chathuratd007/pms_front:latest
+        docker run -d -p 3000:3000 chathuratd007/pms_front:latest

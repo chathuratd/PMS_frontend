@@ -5,7 +5,7 @@ FROM node:20 as build
 WORKDIR /app
 
 # Copy package.json and package-lock.json to the container
-COPY package*.json ./
+COPY package.json .
 
 # Install dependencies
 RUN npm install
@@ -19,11 +19,14 @@ RUN npm run build
 # Production stage
 FROM nginx:alpine
 
-# Copy the built React app from the build stage
-COPY --from=build /app/build /usr/share/nginx/html
+# Set the working directory in the container
+WORKDIR /usr/share/nginx/html
 
-# Copy custom Nginx configuration file
-COPY nginx.conf /etc/nginx/nginx.conf
+# Remove the default Nginx server files
+RUN rm -rf *
+
+# Copy the build files to the Nginx server
+COPY --from=build /app/build .
 
 # Expose the port the application will run on
 EXPOSE 80

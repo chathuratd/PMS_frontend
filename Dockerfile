@@ -2,10 +2,10 @@
 FROM node:20 as build
 
 # Declare the environment variable
-ARG REACT_APP_API_URL
+ARG REACT_APP_API_PROXY
 
 # Set the environment variable
-ENV REACT_APP_API_URL=$REACT_APP_API_URL
+ENV REACT_APP_API_PROXY=$REACT_APP_API_PROXY
 
 # Set the working directory in the container
 WORKDIR /app

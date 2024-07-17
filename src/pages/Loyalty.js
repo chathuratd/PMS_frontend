@@ -26,7 +26,6 @@ const Loyalty = () => {
 
   const baseUrl = process.env.REACT_APP_API_PROXY
 
-
   useEffect(() => {
     const fetchAndFilterUsers = async () => {
       setIsLoading(true);

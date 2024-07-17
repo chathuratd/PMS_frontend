@@ -31,12 +31,12 @@ const Loyalty = () => {
     const fetchAndFilterUsers = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch(`${baseUrl}/user`);
+        const response = await fetch(`${baseUrl}/api/user`);
         if (!response.ok) throw new Error('Failed to fetch users');
         const users = await response.json();
         const usersWithTotal = await Promise.all(
           users.map(async (user) => {
-            const totalResponse = await fetch(`${baseUrl}/user/totalAmount/${user.contact}?months=${months}`);
+            const totalResponse = await fetch(`${baseUrl}/api/user/totalAmount/${user.contact}?months=${months}`);
             const totalData = await totalResponse.json();
             return { ...user, totalAmount: totalData.length > 0 ? totalData[0].totalAmount : 0 };
           })

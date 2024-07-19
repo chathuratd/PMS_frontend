@@ -10,10 +10,12 @@ export const OutOfStock = () => {
     const [filteredItems, setFilteredItems] = useState([]); // State to hold filtered items
     const [isLoading, setIsLoading] = useState(true);
 
+    const baseUrl = process.env.REACT_APP_API_PROXY;
+
     useEffect(() => {
         const fetchOutOfStock = async () => {
             setIsLoading(true);
-            const response = await fetch('/api/outofstock');
+            const response = await fetch(`${baseUrl}/api/outofstock`);
             const json = await response.json();
             if (response.ok) {
                 setoutofstock(json);

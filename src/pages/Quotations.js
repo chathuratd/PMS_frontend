@@ -12,11 +12,12 @@ const Quotations = () => {
     const { prescriptions, dispatch } = usePrescriptionContext();
     const [filteredItems, setFilteredItems] = useState([]); // State to hold filtered items
     const [searchTerm, setSearchTerm] = useState("");
-    // const { user } = useAuthContext();
-    
+
+    const baseUrl = process.env.REACT_APP_API_PROXY;
+
     useEffect(() => {
         const fetchPrescriptions = async () => {
-        const response = await fetch("/api/allPres/all");
+        const response = await fetch(`${baseUrl}/api/allPres/all`);
         const json = await response.json();
         console.log(json);
         if (response.ok) {

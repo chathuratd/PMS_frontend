@@ -13,12 +13,14 @@ const LeavesForm = () => {
     const [emptyFields, setEmptyFields] = useState([]);
     const [showPopup, setShowPopup] = useState(false);
 
+    const baseUrl = process.env.REACT_APP_API_PROXY;
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const leave = { name, email,  dateFrom, dateTo, reason };
 
-        const response = await fetch('/api/leaves', {
+        const response = await fetch(`${baseUrl}/api/leaves`, {
             method: 'POST',
             body: JSON.stringify(leave),
             headers: {

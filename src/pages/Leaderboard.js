@@ -12,11 +12,11 @@ export const Leaderboard =() => {
     const [filteredItems, setFilteredItems] = useState([]); 
     const [loading, setLoading] = useState(true);
 
-
+    const baseUrl = process.env.REACT_APP_API_PROXY;
     
     useEffect(() => {
         const fetchLeaderboard = async()=>{
-            const response = await fetch('/api/leaderboard') //fetching data from the backend and storing it in response
+            const response = await fetch(`${baseUrl}/api/leaderboard`) //fetching data from the backend and storing it in response
             const json = await response.json(); 
             if(response.ok){ 
                 setLeader(json) 

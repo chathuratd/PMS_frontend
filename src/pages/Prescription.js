@@ -15,9 +15,11 @@ const Prescription = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const { user } = useAuthContext();
     
+    const baseUrl = process.env.REACT_APP_API_PROXY;
+
     useEffect(() => {
         const fetchPrescriptions = async () => {
-        const response = await fetch("/api/allPres", {
+        const response = await fetch(`${baseUrl}/api/allPres`, {
           headers: {
             'Authorization': `Bearer ${user.token}`,
             'userId': `${user.userId}`

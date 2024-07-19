@@ -5,9 +5,11 @@ import EditIcon from '@mui/icons-material/Edit';
 
 const LeaderboardPrizeDisplay = ({ cashPrize, leaderboard, onEditCashPrize }) => {
 
+      const baseUrl = process.env.REACT_APP_API_PROXY;
+
       const deleteCashPrize = async () => {
             try {
-                  const response = await fetch(`/api/leaderboard/${leaderboard._id}/deleteCashPrize`, {
+                  const response = await fetch(`${baseUrl}/api/leaderboard/${leaderboard._id}/deleteCashPrize`, {
                         method: 'DELETE',
                   });
                   if (!response.ok) {

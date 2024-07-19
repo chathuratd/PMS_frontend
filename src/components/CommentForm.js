@@ -15,6 +15,8 @@ const CommentForm = () => {
   const [emptyFields, setEmptyFields] = useState([]);
   const [showPopup, setShowPopup] = useState(false); // State to manage popup visibility
 
+  const baseUrl = process.env.REACT_APP_API_PROXY;
+
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,7 +31,7 @@ const CommentForm = () => {
     const comment = { title, day, note };
 
     // Send the comment data to the server
-    const response = await fetch("/api/salesreport", {
+    const response = await fetch(`${baseUrl}/api/salesreport`, {
       method: "POST",
       body: JSON.stringify(comment),
       headers: {

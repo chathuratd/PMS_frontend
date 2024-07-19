@@ -13,6 +13,8 @@ const Leave = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredLeaves, setFilteredLeaves] = useState([]);
 
+  const baseUrl = process.env.REACT_APP_API_PROXY;
+
   const handleEmailModalClose = () => {
     setEmailModalOpen(false);
   };
@@ -29,7 +31,7 @@ const Leave = () => {
   //getting data from the backend
   useEffect(() => {
     const fetchLeaves = async () => {
-      const response = await fetch('/api/leaves');
+      const response = await fetch(`${baseUrl}/api/leaves`);
       const json = await response.json();
 
       if (response.ok) {
@@ -44,7 +46,7 @@ const Leave = () => {
   // Email 
   const handleEmailModalSubmit = async (emailDetails) => {
     try {
-      const response = await fetch('/api/email/send-email', {
+      const response = await fetch(`${baseUrl}/api/email/send-email`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

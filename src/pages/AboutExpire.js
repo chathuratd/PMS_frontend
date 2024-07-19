@@ -10,10 +10,12 @@ export const Expired =() => {
     const [filteredItems, setFilteredItems] = useState([]); // State to hold filtered items
     const [isLoading, setIsLoading] = useState(true); 
 
+    const baseUrl = process.env.REACT_APP_API_PROXY;
+
     useEffect(() => {
         const fetchAbtExpire = async()=>{
             setIsLoading(true);
-            const response = await fetch('/api/abtexpired') //fetching data from the backend and storing it in response
+            const response = await fetch(`${baseUrl}/api/abtexpired`) //fetching data from the backend and storing it in response
             const json = await response.json(); //converting the response to json
             if(response.ok){ //if the response is okay
                 setabtexpire(json) //dispatching the action to the reducer 
@@ -30,7 +32,7 @@ export const Expired =() => {
             if (!abtexpire) return;
             
             const filtered = await Promise.all(abtexpire.map(async (item) => {
-                const response = await fetch(`/api/abtexpired/medicine/${item.drugName}`);
+                const response = await fetch(`${baseUrl}/api/abtexpired/medicine/${item.drugName}`);
                 const data = await response.json();
                 return { ...item, drugName: data.drugName };
             }));

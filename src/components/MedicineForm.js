@@ -9,6 +9,8 @@
         const [showPopup, setShowPopup] = useState(false);
         const [loading, setLoading] = useState(false); 
 
+        const baseUrl = process.env.REACT_APP_API_PROXY;
+
         const handleSubmit = async (event) => {
             event.preventDefault();
             setLoading(true); // Set loading state to true while submitting the form
@@ -20,7 +22,7 @@
             };
 
             try {
-                const response = await fetch('/api/medicinenames/drugnames', {
+                const response = await fetch(`${baseUrl}/api/medicinenames/drugnames`, {
                     method: 'POST',
                     body: JSON.stringify(newMedicine),
                     headers: {

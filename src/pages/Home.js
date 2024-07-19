@@ -42,15 +42,17 @@ const Home = ({ aboutToExpirePath, outOfStockPath, expiredPath, aboutToOutOfStoc
   const [expiredCount, setExpiredCount] = useState(0);
   const [aboutToOutOfStockCount, setAboutToOutOfStockCount] = useState(0);
 
+  const baseUrl = process.env.REACT_APP_API_PROXY;
+
   useEffect(() => {
     const fetchCounts = async () => {
       try {
         // Initiate all fetch requests simultaneously
         const [aboutToExpireResponse, outOfStockResponse, expiredResponse, aboutToOutOfStockResponse] = await Promise.all([
-          fetch('/api/abtexpired'),
-          fetch('/api/outofstock'),
-          fetch('/api/expired'),
-          fetch('/api/abtoutofstock')
+          fetch(`${baseUrl}/api/abtexpired`),
+          fetch(`${baseUrl}/api/outofstock`),
+          fetch(`${baseUrl}/api/expired`),
+          fetch(`${baseUrl}/api/abtoutofstock`)
         ]);
   
         // Process responses

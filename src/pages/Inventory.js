@@ -21,12 +21,12 @@ const Inventory = () => {
     const [notificationBatches, setNotificationBatches] = useState([]);
     const [showNotificationPopup, setShowNotificationPopup] = useState(false); 
   
-    
+    const baseUrl = process.env.REACT_APP_API_PROXY;
 
     useEffect(() => {
         const fetchMedicinenames = async () => {
             try {
-                const response = await fetch('/api/medicinenames/drugnames');//fetching medicinenames from the backend
+                const response = await fetch(`${baseUrl}/api/medicinenames/drugnames`);//fetching medicinenames from the backend
                 if (!response.ok) {
                     throw new Error('Failed to fetch medicinenames');
                 }
@@ -53,7 +53,7 @@ const Inventory = () => {
     // Function to fetch updated medicinenames after adding a batch
     const fetchMedicinenames = async () => {
         try {
-            const response = await fetch('/api/medicinenames/drugnames');//fetching updated medicinenames from the backend
+            const response = await fetch(`${baseUrl}/api/medicinenames/drugnames`);//fetching updated medicinenames from the backend
             if (!response.ok) {
                 throw new Error('Failed to fetch updated medicinenames');
             }
@@ -97,7 +97,7 @@ const Inventory = () => {
     //deleting a medicine from the inventory
     const handleDeleteMedicine = async (medicineId) => {
         try {
-            const response = await fetch(`/api/medicinenames/drugnames/${medicineId}`, {
+            const response = await fetch(`${baseUrl}/api/medicinenames/drugnames/${medicineId}`, {
                 method: 'DELETE',
             });
             if (response.ok) {
@@ -116,7 +116,7 @@ const Inventory = () => {
     //deleting a batch from the inventory
     const handleDeleteBatch = async (batchId) => {
         try {
-            const response = await fetch(`/api/drugouts/batches/${batchId}`, {
+            const response = await fetch(`${baseUrl}/api/drugouts/batches/${batchId}`, {
                 method: 'DELETE',
             });
             if (response.ok) {
@@ -135,7 +135,7 @@ const Inventory = () => {
 //updating a batch in the inventory
     const updateBatch = async (batchId, newData) => {
         try {
-            const response = await fetch(`/api/drugouts/batches/${batchId}`,{
+            const response = await fetch(`${baseUrl}/api/drugouts/batches/${batchId}`,{
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',

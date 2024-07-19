@@ -7,10 +7,12 @@ const Billing = () => {
     const [isAdmin, setIsAdmin] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
 
+    const baseUrl = process.env.REACT_APP_API_PROXY;
+
     useEffect(() => {
         const fetchBilling = async () => {
             try {
-                const response = await fetch('/api/billing');
+                const response = await fetch(`${baseUrl}/api/billing`);
                 const json = await response.json();
 
                 if (response.ok) {
@@ -29,7 +31,7 @@ const Billing = () => {
 
     const handleDeleteMedicine = async (invoiceID, medicineIndex) => {
         try {
-            const response = await fetch(`/api/billing/${invoiceID}/medicine/${medicineIndex}`, {
+            const response = await fetch(`${baseUrl}/api/billing/${invoiceID}/medicine/${medicineIndex}`, {
                 method: 'DELETE',
             });
     

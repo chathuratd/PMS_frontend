@@ -16,6 +16,8 @@ const LeaderboardDetails = ({ leaderboard }) => {
     const [editMode, setEditMode] = useState(false);
     const [editingCashPrize, setEditingCashPrize] = useState(null);
 
+    const baseUrl = process.env.REACT_APP_API_PROXY;
+
 
     // Function to convert month number to month name
     const getMonthName = (monthNumber) => {
@@ -25,7 +27,7 @@ const LeaderboardDetails = ({ leaderboard }) => {
 
     const fetchCashPrize = async () => {
         try {
-            const response = await fetch(`/api/leaderboard/${leaderboard._id}/getCashPrize`);
+            const response = await fetch(`${baseUrl}/api/leaderboard/${leaderboard._id}/getCashPrize`);
             const cashPrize = await response.json();
             setCashPrize(cashPrize);
             console.log(cashPrize);

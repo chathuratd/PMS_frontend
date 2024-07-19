@@ -5,6 +5,8 @@ const LeaderboardPrizeForm = ({ id, onPrizeAdded, initialCashPrize, editMode }) 
  const [isValid, setIsValid] = useState(true); 
  const [message, setMessage] = useState('');
 
+ const baseUrl = process.env.REACT_APP_API_PROXY;
+
  useEffect(() => {
     setCashPrize(initialCashPrize || '');
     setIsValid(true); 
@@ -17,7 +19,7 @@ const LeaderboardPrizeForm = ({ id, onPrizeAdded, initialCashPrize, editMode }) 
       return; 
     }
 
-    const endpoint = editMode ? `/api/leaderboard/${id}/updateCashPrize` : `/api/leaderboard/${id}/addCashPrize`;
+    const endpoint = editMode ? `${baseUrl}/api/leaderboard/${id}/updateCashPrize` : `${baseUrl}/api/leaderboard/${id}/addCashPrize`;
     const method = editMode ? 'PATCH' : 'POST';
 
     try {

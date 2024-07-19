@@ -4,10 +4,12 @@ import { FaEdit, FaTrash } from 'react-icons/fa';
 const BillDetails = ({ bill, isAdmin , dispatch}) => {
     const [activeEditBillId, setActiveEditBillId] = useState(null);
 
+    const baseUrl = process.env.REACT_APP_API_PROXY;
+
     const handleDeleteMedicine = async (index) => {
         try {
             // Send a DELETE request to your backend API
-            const response = await fetch(`/api/billing/${bill.invoiceID}/medicine/${index}`, {
+            const response = await fetch(`${baseUrl}/api/billing/${bill.invoiceID}/medicine/${index}`, {
                 method: 'DELETE',
             });
     

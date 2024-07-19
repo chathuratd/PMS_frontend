@@ -29,6 +29,8 @@ const Reorder = () => {
 
   const [emailModalOpen, setEmailModalOpen] = useState(false);
 
+  const baseUrl = process.env.REACT_APP_API_PROXY;
+
   const handleEmailModalClose = () => {
     setEmailModalOpen(false);
   }
@@ -36,7 +38,7 @@ const Reorder = () => {
   useEffect(() => {
     const fetchReorder = async () => {
       setIsLoading(true);
-      const response = await fetch('/api/reorder') //fetching data from the backend and storing it in response
+      const response = await fetch(`${baseUrl}/api/reorder`) //fetching data from the backend and storing it in response
       const json = await response.json(); //converting the response to json
       if (response.ok) { //if the response is okay
         dispatch({ type: 'SET_REORDER', payload: json }) //dispatching the action to the reducer
@@ -73,7 +75,7 @@ const Reorder = () => {
       // Check if the entered email matches the supplierEmail
       if (to === firstSupplierEmail) {
         try {
-          const response = await fetch('/api/email/send-email', {
+          const response = await fetch(`${baseUrl}/api/email/send-email`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

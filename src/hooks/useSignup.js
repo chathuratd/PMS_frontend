@@ -9,8 +9,10 @@ export const useSignup = () => {
     const signup = async (email, password, name, contact ) => {
         setIsLoading(true)
         setError(null)
+
+        const baseUrl = process.env.REACT_APP_API_PROXY;
         
-        const response = await fetch('/api/user/signup', {
+        const response = await fetch(`${baseUrl}/api/user/signup`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({ email, password, name, contact })

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Container, Typography, Box, AppBar, Toolbar } from '@mui/material';
+import { Button, Container, Typography, Box, AppBar, Toolbar, Grid } from '@mui/material';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import logo from '../images/logo-org.png';
 import img1 from '../images/ap1.jpg';
@@ -69,24 +69,26 @@ const Landing = () => {
         }}>
             <AppBar position="static" sx={{ backgroundColor: '#fff' }}>
                 <Toolbar>
-                    <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}> {/* Center align content */}
-                        <img src={logo} alt="Anura Pharmacy Logo" style={{ height: '120px', marginLeft: '40px' }} />
-                        <h4 style={{ color: '#2152A4', margin: '0 auto', fontSize: '2.75rem', fontFamily: 'Arial Black', letterSpacing: '-3px' }}>
-                            <strong>ANURA PHARMACY (PVT) LTD</strong>
-                        </h4>
-                    </Box>
-                    <Box>
-                        <button>
-                            <Link to="/login" className="text-dark-blue font-medium py-2 px-4 rounded hover:underline">
-                                Login
-                            </Link>
-                        </button>
-                        <button>
-                            <Link to="/signup" className="text-dark-blue font-medium py-2 px-4 rounded hover:underline">
-                                Signup
-                            </Link>
-                        </button>
-                    </Box>
+                    <Grid container alignItems="center">
+                        <Grid item xs={2} sm={1} md={1}>
+                            <img src={logo} alt="Anura Pharmacy Logo" style={{ height: '80px', marginLeft: '10px' }} />
+                        </Grid>
+                        <Grid item xs={8} sm={10} md={10} sx={{ textAlign: 'center' }}>
+                            <Typography variant="h4" sx={{ color: '#2152A4', fontSize: { xs: '1.5rem', md: '2.75rem' }, fontFamily: 'Arial Black', letterSpacing: '-1px' }}>
+                                <strong>ANURA PHARMACY (PVT) LTD</strong>
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={2} sm={1} md={1} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                            <Box>
+                                <Button component={Link} to="/login" sx={{ color: '#2152A4', marginRight: '10px' }}>
+                                    Login
+                                </Button>
+                                <Button component={Link} to="/signup" sx={{ color: '#2152A4' }}>
+                                    Signup
+                                </Button>
+                            </Box>
+                        </Grid>
+                    </Grid>
                 </Toolbar>
             </AppBar>
 

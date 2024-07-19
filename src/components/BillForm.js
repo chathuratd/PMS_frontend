@@ -19,6 +19,8 @@ const BillForm = () => {
     const [error, setError] = useState('');
     const[customerIDError,setCustomerIDError]=useState('');
     const[pharmacistIDError,setPharmacistIDError]=useState('');
+
+    const baseUrl = process.env.REACT_APP_API_PROXY;
     
     useEffect(() => {
         // Calculate subtotal whenever medicines or their quantities change
@@ -82,7 +84,7 @@ const BillForm = () => {
         };
 
         try {
-            const response = await fetch('/api/billing', {
+            const response = await fetch(`${baseUrl}/api/billing`, {
                 method: 'POST',
                 body: JSON.stringify(bill),
                 headers: {
@@ -106,7 +108,7 @@ const BillForm = () => {
                 //Reduce quantity from the first batch in the drug schema/drugnames/:id/batches
             // Reduce quantity for each medicine in the list
             for (const medicine of medicines) {
-                const responseBatch = await fetch(`/api/medicinenames/drugnames/${medicine.drugName}/batches`);
+                const responseBatch = await fetch(`${baseUrl}/api/medicinenames/drugnames/${medicine.drugName}/batches`);
                 if (responseBatch.ok) {
                     const batchData = await responseBatch.json();
                     if (batchData && batchData.batches && batchData.batches.length > 0) {

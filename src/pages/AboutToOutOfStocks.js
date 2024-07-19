@@ -10,14 +10,14 @@ export const AboutToOutOfStock = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [filteredItems, setFilteredItems] = useState([]); // State to hold filtered items
     const [isLoading, setIsLoading] = useState(true); 
-    // const [abouttooutofstock, setAboutToOutOfStock] = useState([]);
 
+    const baseUrl = process.env.REACT_APP_API_PROXY;
 
 
     useEffect(() => {
         const fetchOutOfStock = async () => {
             setIsLoading(true);
-            const response = await fetch('/api/abtoutofstock'); // Corrected URL
+            const response = await fetch(`${baseUrl}/api/abtoutofstock`); // Corrected URL
             const json = await response.json();
             if (response.ok) {
                 setabouttooutofstock(json);
@@ -34,24 +34,6 @@ export const AboutToOutOfStock = () => {
         );
         setFilteredItems(filteredResults);
     }, [searchTerm, abouttooutofstock]);
-    // useEffect(() => {
-    //     const filterItems = async () => {
-    //         // Wait for abouttooutofstock to be set before filtering
-    //         if (!abouttooutofstock) return;
-            
-    //         const filtered = await Promise.all(abouttooutofstock.map(async (item) => {
-    //             const response = await fetch(`/api/abtoutofstock/medicine/${item.drugName}`);
-    //             const data = await response.json();
-    //             return { ...item, drugName: data.drugName };
-    //         }));
-            
-    //         // Now filter based on the updated drugName
-    //         const filteredResults = filtered.filter((item) => item.drugName.toLowerCase().includes(searchTerm.toLowerCase()));
-    //         setFilteredItems(filteredResults);
-    //     };
-
-    //     filterItems();
-    // }, [searchTerm, abouttooutofstock]);
  
     return (
         <div className="px-4 py-8 ml-auto">

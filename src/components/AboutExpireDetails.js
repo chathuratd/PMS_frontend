@@ -8,11 +8,13 @@ const AboutExpireDetials = ({ expire }) => {
   const [drugName, setDrugName] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
+  const baseUrl = process.env.REACT_APP_API_PROXY;
+
   useEffect(() => {
     const fetchDrugName = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch(`/api/abtexpired/medicine/${expire.drugName}`);
+        const response = await fetch(`${baseUrl}/api/abtexpired/medicine/${expire.drugName}`);
         if (response.ok) {
           const data = await response.json();
           setDrugName(data.drugName);

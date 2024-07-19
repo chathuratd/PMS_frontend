@@ -12,10 +12,12 @@ export const Expired = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [showExpiredWithin30Days, setShowExpiredWithin30Days] = useState(false);
 
+    const baseUrl = process.env.REACT_APP_API_PROXY;
+
     useEffect(() => {
         const fetchExpired = async () => {
             setIsLoading(true);
-            const response = await fetch('/api/expired');
+            const response = await fetch(`${baseUrl}/api/expired`);
             const json = await response.json();
             if (response.ok) {
                 setExpired(json);
@@ -30,7 +32,7 @@ export const Expired = () => {
             if (!expire) return;
 
             const filtered = await Promise.all(expire.map(async (item) => {
-                const response = await fetch(`/api/expired/medicine/${item.drugName}`);
+                const response = await fetch(`${baseUrl}/api/expired/medicine/${item.drugName}`);
                 const data = await response.json();
                 return { ...item, drugName: data.drugName };
             }));

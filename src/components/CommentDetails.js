@@ -9,8 +9,10 @@ const CommentDetails = ({ comments }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [note, setNote] = useState(comments.note);
 
+  const baseUrl = process.env.REACT_APP_API_PROXY;
+
   const handleClick = async () => {
-    const response = await fetch("/api/salesreport/" + comments._id, {
+    const response = await fetch(`${baseUrl}/api/salesreport/` + comments._id, {
       method: "DELETE",
     });
     const json = await response.json();
@@ -30,7 +32,7 @@ const CommentDetails = ({ comments }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("/api/salesreport/" + comments._id, {
+    const response = await fetch(`${baseUrl}/api/salesreport/` + comments._id, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

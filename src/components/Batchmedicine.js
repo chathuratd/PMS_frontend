@@ -15,12 +15,13 @@ const Batchmedicine = ({ onSuccess , onUpdateDrugs}) => {
     const [showPopup, setShowPopup] = useState(false);
     const [loading, setLoading] = useState(false); 
    
+    const baseUrl = process.env.REACT_APP_API_PROXY;
     
 
     useEffect(() => {
         const fetchDrugs = async () => {
             try {
-                const response = await fetch('api/medicinenames/drugnames'); // Assuming correct API endpoint
+                const response = await fetch(`${baseUrl}api/medicinenames/drugnames`); // Assuming correct API endpoint
                 if (!response.ok) {
                     throw new Error('Failed to fetch drugs');
                 }
@@ -104,7 +105,7 @@ const Batchmedicine = ({ onSuccess , onUpdateDrugs}) => {
         };
     
         try {
-            const response = await fetch(`/api/medicinenames/drugnames/${selectedDrug}/batches`, { // Assuming correct API endpoint
+            const response = await fetch(`${baseUrl}/api/medicinenames/drugnames/${selectedDrug}/batches`, { // Assuming correct API endpoint
                 method: 'POST',
                 body: JSON.stringify(newBatch),
                 headers: {

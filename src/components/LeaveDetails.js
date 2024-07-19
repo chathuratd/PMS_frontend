@@ -8,8 +8,10 @@ const LeaveDetails = ({ leave }) => {
   const [reason, setReason] = useState(leave.reason || '');
   const [dateTo, setDateTo] = useState(leave.dateTo || '');
 
+  const baseUrl = process.env.REACT_APP_API_PROXY;
+
   const handleClick = async () => {
-    const response = await fetch('/api/leaves/' + leave._id, {
+    const response = await fetch(`${baseUrl}/api/leaves/` + leave._id, {
       method: 'DELETE'
     });
     const json = await response.json();
@@ -29,7 +31,7 @@ const LeaveDetails = ({ leave }) => {
   };
 
   const handleSubmitValues = async () => {
-    const response = await fetch('/api/leaves/' + leave._id, {
+    const response = await fetch(`${baseUrl}/api/leaves/` + leave._id, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

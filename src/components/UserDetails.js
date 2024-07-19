@@ -12,9 +12,12 @@ const UserDetails = ({ user }) => {
   const [selectedCoupon, setSelectedCoupon] = useState(null);
 
   const fetchCoupons = useMemo(() => async () => {
+
+    const baseUrl = process.env.REACT_APP_API_PROXY
+
     setIsLoadingCoupons(true);
     try {
-      const response = await fetch(`/api/user/${user._id}/coupons`);
+      const response = await fetch(`${baseUrl}/api/user/${user._id}/coupons`);
       const coupons = await response.json();
       setCoupons(coupons);
     } catch (error) {
@@ -41,6 +44,7 @@ const UserDetails = ({ user }) => {
 
   const handleViewButtonClick = () => {
     setShowCouponTable(!showCouponTable);
+    
     if (!showCouponTable && !coupons.length) {
       fetchCoupons();
     }
@@ -54,8 +58,12 @@ const UserDetails = ({ user }) => {
   };
 
   const handleDeleteCoupon = async (couponId) => {
+
+    const baseUrl = process.env.REACT_APP_API_PROXY
+
+
     try {
-      const response = await fetch(`/api/user/${user._id}/coupons/${couponId}`, {
+      const response = await fetch(`${baseUrl}/api/user/${user._id}/coupons/${couponId}`, {
         method: 'DELETE',
       });
 

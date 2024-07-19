@@ -66,12 +66,15 @@ const AddCouponForm = ({ id, onCouponAdded, coupon, isEditing, onFormSubmit, onC
     setLoading(true);
     setError('');
 
+    const baseUrl = process.env.REACT_APP_API_PROXY
+
+
     try {
       const couponData = { expire, discount, status, couponCode };
 
       let response;
       if (isEditing) {
-        response = await fetch(`/api/user/${id}/coupons/${coupon._id}`, {
+        response = await fetch(`${baseUrl}/api/user/${id}/coupons/${coupon._id}`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
@@ -79,7 +82,7 @@ const AddCouponForm = ({ id, onCouponAdded, coupon, isEditing, onFormSubmit, onC
           body: JSON.stringify(couponData),
         });
       } else {
-        response = await fetch(`/api/user/${id}/coupons`, {
+        response = await fetch(`${baseUrl}/api/user/${id}/coupons`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

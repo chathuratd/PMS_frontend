@@ -6,10 +6,12 @@ const POSSearch = ({ handleAddToBill }) => {
     const [error, setError] = useState('');
     const [selectedDrug, setSelectedDrug] = useState(null);
 
+    const baseUrl = process.env.REACT_APP_API_PROXY
+
     useEffect(() => {
         const fetchDrugs = async () => {
             try {
-                const response = await fetch('/api/medicinenames/drugnames/withprice');
+                const response = await fetch(`${baseUrl}/api/medicinenames/drugnames/withprice`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch drugs');
                 }

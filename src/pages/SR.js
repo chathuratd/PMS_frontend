@@ -18,6 +18,7 @@ const SalesReport = () => {
   const [showGraph, setShowGraph] = useState(false);
   const [currentMonthProfit, setCurrentMonthProfit] = useState(0);
   const [previousMonthProfit, setPreviousMonthProfit] = useState(0);
+  const baseUrl = process.env.REACT_APP_API_PROXY;
   const currentMonth = new Date().toLocaleDateString("default", {
     month: "long",
   });
@@ -29,7 +30,7 @@ const SalesReport = () => {
 
   useEffect(() => {
     const fetchWorkouts = async () => {
-      const response = await fetch("/api/salesreport");
+      const response = await fetch(`${baseUrl}/api/salesreport`);
       const json = await response.json();
 
       if (response.ok) {
@@ -42,7 +43,7 @@ const SalesReport = () => {
 
   useEffect(() => {
     const fetchBillingData = async () => {
-      const response = await fetch("/api/billing");
+      const response = await fetch(`${baseUrl}/api/billing`);
       const json = await response.json();
 
       if (response.ok) {

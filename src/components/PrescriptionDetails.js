@@ -26,7 +26,7 @@ const PrescriptionDetails = ({ prescription }) => {
     useEffect(() => {
         const fetchQuotations = async () => {
           try {
-            const response = await fetch(`/api/allPres/${ prescription._id }/quotations`);
+            const response = await fetch(`${baseUrl}/api/allPres/${ prescription._id }/quotations`);
             if (!response.ok) {
               throw new Error('Failed to fetch quotations');
             }
@@ -43,7 +43,7 @@ const PrescriptionDetails = ({ prescription }) => {
         if(!user){
             return
         }
-        const response = await fetch("/api/allPres/" + prescription._id, {
+        const response = await fetch(`${baseUrl}/api/allPres/` + prescription._id, {
             method: "DELETE",
             headers: {
                 'Authorization': `Bearer ${user.token}`
@@ -72,7 +72,7 @@ const PrescriptionDetails = ({ prescription }) => {
     }
 
     const handleSaveNote = async (newNote) => {
-        const response = await fetch("/api/allPres/" + prescription._id, {
+        const response = await fetch(`${baseUrl}/api/allPres/` + prescription._id, {
             method: "PATCH",
             headers: {
                 'Content-Type': 'application/json'

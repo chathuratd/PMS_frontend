@@ -17,7 +17,7 @@ const PresDisplay = ({ prescription }) => {
 
     const fetchUserEmail = async () => {
         try {
-            const response = await fetch(`/api/user/${prescription.userId}`);
+            const response = await fetch(`${baseUrl}/api/user/${prescription.userId}`);
             if (response.ok) {
                 const userData = await response.json();
                 console.log(userData);
@@ -48,7 +48,7 @@ const PresDisplay = ({ prescription }) => {
 
     const handleEmailModalSubmit = async (emailDetails) => {
         try {
-          const response = await fetch('/api/email/send-email', {
+          const response = await fetch(`${baseUrl}/api/email/send-email`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

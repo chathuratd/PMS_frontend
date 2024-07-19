@@ -15,6 +15,8 @@ const PresDisplay = ({ prescription }) => {
     const [showModal, setShowModal] = useState(false);
     const [emailModalOpen, setEmailModalOpen] = useState(false);
 
+    const baseUrl = process.env.REACT_APP_API_PROXY;
+
     const fetchUserEmail = async () => {
         try {
             const response = await fetch(`${baseUrl}/api/user/${prescription.userId}`);

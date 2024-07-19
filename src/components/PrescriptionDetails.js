@@ -15,6 +15,8 @@ const PrescriptionDetails = ({ prescription }) => {
     const [showUpdateModal, setShowUpdateModal] = useState(false);
     const { user } = useAuthContext();
 
+    const baseUrl = process.env.REACT_APP_API_PROXY;
+
     const handleQuotation = () => {
         setShowModal(true); // Show the modal when the button is clicked
     };    

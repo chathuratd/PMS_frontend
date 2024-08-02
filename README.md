@@ -24,7 +24,7 @@ The frontend interacts with the backend through various routes. Ensure the backe
 
 ## Deployment
 
-The frontend is currently hosted at: [http://54.172.39.22:3000/](http://54.172.39.22:3000/)
+The frontend is currently hosted at: [http://34.228.79.166:3000/](http://34.228.79.166:3000/)
 
 ## Getting Started
 
